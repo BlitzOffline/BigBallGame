@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using BigBallGame.Ball;
 
-namespace BigBallGame.Ball
+namespace BigBallGame.Simulation
 {
-    public class BallsGenerator
+    public class BallGenerator
     {
         private readonly Random _random;
-        private readonly Simulation.Simulation _simulation;
+        private readonly Simulation _simulation;
         
-        public BallsGenerator(Simulation.Simulation simulation)
+        public BallGenerator(Simulation simulation)
         {
             _random = new Random();
             _simulation = simulation;
         }
         
-        public BallsGenerator(int seed, Simulation.Simulation simulation)
+        public BallGenerator(int seed, Simulation simulation)
         {
             _random = new Random(seed);
             _simulation = simulation;
         }
         
-        public BallsGenerator(Random random, Simulation.Simulation simulation)
+        public BallGenerator(Random random, Simulation simulation)
         {
             _random = random;
             _simulation = simulation;
         }
 
-        public Ball GenerateRegularBall(IReadOnlyList<IBall> balls = null)
+        public Ball.Ball GenerateRegularBall(IReadOnlyList<IBall> balls = null)
         {
             if (balls == null || balls.Count == 0)
             {

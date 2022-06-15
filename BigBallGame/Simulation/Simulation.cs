@@ -25,7 +25,7 @@ public class Simulation
     public readonly Border Border;
     
     private readonly List<IBall> _balls = new();
-    private readonly BallsGenerator _ballsGenerator;
+    private readonly BallGenerator _ballGenerator;
     
     public Simulation(Gui gui)
     {
@@ -35,7 +35,7 @@ public class Simulation
         Border.MaxX = Gui.ClientSize.Width;
         Border.MaxY = Gui.ClientSize.Height;
         
-        _ballsGenerator = new BallsGenerator(this);
+        _ballGenerator = new BallGenerator(this);
         GenerateBalls();
     }
     
@@ -117,18 +117,18 @@ public class Simulation
     {
         while (_balls.Count < RegularBallsAmount)
         {
-            _balls.Add(_ballsGenerator.GenerateRegularBall());
+            _balls.Add(_ballGenerator.GenerateRegularBall());
         }
 
         while (_balls.Count < RegularBallsAmount + RepellentBallsAmount)
         {
-            _balls.Add(_ballsGenerator.GenerateRepellentBall());
+            _balls.Add(_ballGenerator.GenerateRepellentBall());
         }
             
             
         while (_balls.Count < RegularBallsAmount + RepellentBallsAmount + MonsterBallsAmount)
         {
-            _balls.Add(_ballsGenerator.GenerateMonsterBall());
+            _balls.Add(_ballGenerator.GenerateMonsterBall());
         }
     }
 
