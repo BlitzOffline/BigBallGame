@@ -29,41 +29,41 @@ public class Simulation
     
     public Simulation(Gui gui)
     {
-        Gui = gui;
-        Border.MinX = 0;
-        Border.MinY = 0;
-        Border.MaxX = Gui.ClientSize.Width;
-        Border.MaxY = Gui.ClientSize.Height;
+        this.Gui = gui;
+        this.Border.MinX = 0;
+        this.Border.MinY = 0;
+        this.Border.MaxX = this.Gui.ClientSize.Width;
+        this.Border.MaxY = this.Gui.ClientSize.Height;
         
-        _ballGenerator = new BallGenerator(this);
-        GenerateBalls();
+        this._ballGenerator = new BallGenerator(this);
+        this.GenerateBalls();
     }
     
     public void StartSimulation()
     { 
-        Start();
+        this.Start();
     }
 
     public void TickSimulation()
     {
-        if (!_balls.OfType<RegularBall>().Any() && !_balls.OfType<RepellentBall>().Any()) return;
+        if (!this._balls.OfType<RegularBall>().Any() && !this._balls.OfType<RepellentBall>().Any()) return;
         
-        Render();
-        Tick();
+        this.Render();
+        this.Tick();
     }
     
     private void Start()
     {
-        SendDebugMessage("Started simulation...");
-        Render();
-        SendDebugMessage("Rendered balls...");
+        this.SendDebugMessage("Started simulation...");
+        this.Render();
+        this.SendDebugMessage("Rendered balls...");
         var lastFrameTime = Environment.TickCount;
-        while (Tick())
+        while (this.Tick())
         {
             var currentFrameTime = Environment.TickCount;
             var passedTime = currentFrameTime - lastFrameTime;
-            SendDebugMessage("Passed time: " + passedTime);
-            var remaining = TickTime - passedTime;
+            this.SendDebugMessage("Passed time: " + passedTime);
+            var remaining = this.TickTime - passedTime;
             lastFrameTime = currentFrameTime;
             if (remaining > 0) Thread.Sleep(remaining);
         }
@@ -71,32 +71,32 @@ public class Simulation
 
     private bool Tick()
     {
-        SendDebugMessage("Ticking...");
-        for (var i = _balls.Count - 1; i >= 0; i--)
+        this.SendDebugMessage("Ticking...");
+        for (var i = this._balls.Count - 1; i >= 0; i--)
         {
-            _balls[i].Move();
+            this._balls[i].Move();
         }
-        SendDebugMessage("Moved balls...");
+        this.SendDebugMessage("Moved balls...");
 
-        foreach (var ball in _balls.Where(HandleCollisions).ToList())
+        foreach (var ball in this._balls.Where(this.HandleCollisions).ToList())
         {
-            _balls.Remove(ball);
+            this._balls.Remove(ball);
         }
 
-        SendDebugMessage("Handled collisions...");
+        this.SendDebugMessage("Handled collisions...");
 
-        Render();
-        SendDebugMessage("Rerendered balls...");
+        this.Render();
+        this.SendDebugMessage("Rerendered balls...");
         
-        return AutomateTicking && _balls.OfType<RegularBall>().Any();
+        return this.AutomateTicking && this._balls.OfType<RegularBall>().Any();
     }
     
     private bool HandleCollisions(IBall tickedBall)
     {
         var shouldRemove = false;
-        for (var i = _balls.Count - 1; i >= 0; i--)
+        for (var i = this._balls.Count - 1; i >= 0; i--)
         {
-            var ball = _balls[i];
+            var ball = this._balls[i];
             
             if (ball.Equals(tickedBall)) continue;
             if (!tickedBall.CollidesWith(ball)) continue;
@@ -110,35 +110,36 @@ public class Simulation
     public void Render()
     {
         // We refresh the form to make sure OnPaint is called.
-        Gui.Invalidate();
+        this.Gui.Invalidate();
     }
 
     private void GenerateBalls()
     {
-        while (_balls.Count < RegularBallsAmount)
+        while (this._balls.Count < this.RegularBallsAmount)
         {
-            _balls.Add(_ballGenerator.GenerateRegularBall());
+            this._balls.Add(this._ballGenerator.GenerateRegularBall());
         }
 
-        while (_balls.Count < RegularBallsAmount + RepellentBallsAmount)
+        while (this._balls.Count < this.RegularBallsAmount + this.RepellentBallsAmount)
         {
-            _balls.Add(_ballGenerator.GenerateRepellentBall());
+            this._balls.Add(this._ballGenerator.GenerateRepellentBall());
         }
             
             
-        while (_balls.Count < RegularBallsAmount + RepellentBallsAmount + MonsterBallsAmount)
+        while (this._balls.Count < this.RegularBallsAmount + this.RepellentBallsAmount + this.MonsterBallsAmount)
         {
-            _balls.Add(_ballGenerator.GenerateMonsterBall());
+            this._balls.Add(this._ballGenerator.GenerateMonsterBall());
         }
     }
 
     public IEnumerable<IBall> GetBalls()
     {
-        return _balls.ToList();
+        // Use a copy of the list to prevent concurrent modification
+        return this._balls.ToList();
     }
 
     public void SendDebugMessage(string message)
     {
-        if (Debug) Console.WriteLine(message);
+        if (this.Debug) Console.WriteLine(message);
     }
 }
