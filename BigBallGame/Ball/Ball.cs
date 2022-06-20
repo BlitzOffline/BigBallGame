@@ -154,7 +154,8 @@ namespace BigBallGame.Ball
         
             // impact speed
             var v = this.Velocity.Subtract(other.Velocity);
-            var vn = v.Dot(mtd.Normalize());
+            mtd = mtd.Normalize();
+            var vn = v.Dot(mtd);
                     
             if (vn > 0.0f) return;
         
