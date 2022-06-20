@@ -18,8 +18,7 @@ namespace BigBallGame.Ball
                 this.Color.A,
                 255 - this.Color.R,
                 this.Color.G, 
-                255 - this.Color.B
-                );
+                255 - this.Color.B);
             g.DrawEllipse(
                 new Pen(color, 5),
                 this.Center.X - this.Radius,
@@ -39,11 +38,11 @@ namespace BigBallGame.Ball
                     this.HandleRepellentBallCollision(regularBall);
                     return false;
                 case MonsterBall monsterBall:
-                    HandleMonsterBallCollision(monsterBall);
-                    // this.Radius /= 2;
+                    this.HandleMonsterBallCollision(monsterBall);
+                    this.Radius /= 2;
                     return this.Radius <= 0;
                 case RepellentBall repellentBall:
-                    HandleRepellentBallCollision(repellentBall);
+                    this.HandleRepellentBallCollision(repellentBall);
                     return false;
             }
             
