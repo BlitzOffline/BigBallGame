@@ -2,28 +2,31 @@
 using System.Drawing;
 
 namespace BigBallGame;
-public class Vector2D {
-
+public class Vector2D
+{
     public float X { get; set; }
     public float Y { get; set; }
-    public float Length => (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
+    public float Length { get; private set; }
 
     public Vector2D()
     {
         this.X = 0;
         this.Y = 0;
+        Length = 0;
     }
 
     public Vector2D(float x, float y)
     {
         this.X = x;
         this.Y = y;
+        Length = (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
     }
 
     public void Set(float x, float y)
     {
         this.X = x;
         this.Y = y;
+        Length = (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
     }
 
     public float Dot(Vector2D other)
@@ -65,13 +68,12 @@ public class Vector2D {
 
     public Vector2D Normalize()
     {
-        var len = Length;
-        if (len != 0.0f)
+        if (Length != 0.0f)
         {
             return new Vector2D
             {
-                X = this.X / len,
-                Y = this.Y / len
+                X = this.X / Length,
+                Y = this.Y / Length
             };
         }
 
