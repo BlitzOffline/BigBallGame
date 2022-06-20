@@ -68,16 +68,18 @@ public class Vector2D {
         var len = Length;
         if (len != 0.0f)
         {
-            this.X = this.X / len;
-            this.Y = this.Y / len;
-        }
-        else
-        {
-            this.X = 0.0f;
-            this.Y = 0.0f;
+            return new Vector2D
+            {
+                X = this.X / len,
+                Y = this.Y / len
+            };
         }
 
-        return this;
+        return new Vector2D
+        {
+            X = 0f,
+            Y = 0f
+        };
     }
 
     public PointF ToPointF()
