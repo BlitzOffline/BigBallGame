@@ -8,11 +8,8 @@ namespace BigBallGame.Ball
         Vector2D Center { get; set; }
         Vector2D Velocity { get; set; }
         Color Color { get; set; }
-        
-        Vector2D PreviousCenter { get; set; }
-        Vector2D PreviousVelocity { get; set; }
 
-        void Draw(Graphics g);
+        void Draw(Graphics graphics);
         void Move();
 
         /**

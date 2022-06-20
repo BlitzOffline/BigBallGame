@@ -12,56 +12,56 @@ namespace BigBallGame.Simulation
         
         public BallGenerator(Simulation simulation)
         {
-            _random = new Random();
-            _simulation = simulation;
+            this._random = new Random();
+            this._simulation = simulation;
         }
         
         public BallGenerator(int seed, Simulation simulation)
         {
-            _random = new Random(seed);
-            _simulation = simulation;
+            this._random = new Random(seed);
+            this._simulation = simulation;
         }
         
         public BallGenerator(Random random, Simulation simulation)
         {
-            _random = random;
-            _simulation = simulation;
+            this._random = random;
+            this._simulation = simulation;
         }
 
         public Ball.Ball GenerateRegularBall(IReadOnlyList<IBall> balls = null)
         {
             if (balls == null || balls.Count == 0)
             {
-                var radius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+                var radius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
                 return new RegularBall(
                     radius,
                     new Vector2D(
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Width - radius),
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Height - radius)),
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Width - radius),
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Height - radius)),
                     Color.FromArgb(
-                        _random.Next(0, 220),
-                        _random.Next(0, 220),
-                        _random.Next(0, 220)),
-                    new Vector2D(_random.Next(1, radius), _random.Next(1, radius)), 
-                    _simulation.Border,
-                    _simulation
+                        this._random.Next(0, 220),
+                        this._random.Next(0, 220),
+                        this._random.Next(0, 220)),
+                    new Vector2D(this._random.Next(1, radius), this._random.Next(1, radius)), 
+                    this._simulation.Border,
+                    this._simulation
                 );
             }
             
             // TODO: Generate a ball here but make sure it does not collide with any of the other balls!
-            var ballRadius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+            var ballRadius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
             return new RegularBall(
                 ballRadius,
                 new Vector2D(
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Width - ballRadius),
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Height - ballRadius)),
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Width - ballRadius),
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Height - ballRadius)),
                 Color.FromArgb(
-                    _random.Next(0, 220),
-                    _random.Next(0, 220),
-                    _random.Next(0, 220)),
-                new Vector2D(_random.Next(1, ballRadius), _random.Next(1, ballRadius)), 
-                _simulation.Border,
-                _simulation
+                    this._random.Next(0, 220),
+                    this._random.Next(0, 220),
+                    this._random.Next(0, 220)),
+                new Vector2D(this._random.Next(1, ballRadius), this._random.Next(1, ballRadius)), 
+                this._simulation.Border,
+                this._simulation
             );
         }
         
@@ -69,36 +69,36 @@ namespace BigBallGame.Simulation
         {
             if (balls == null || balls.Count == 0)
             {
-                var radius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+                var radius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
                 return new RepellentBall(
                     radius,
                     new Vector2D(
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Width - radius),
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Height - radius)),
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Width - radius),
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Height - radius)),
                     Color.FromArgb(
-                        _random.Next(0, 220),
-                        _random.Next(0, 220),
-                        _random.Next(0, 220)),
-                    new Vector2D(_random.Next(1, radius), _random.Next(1, radius)), 
-                    _simulation.Border,
-                    _simulation
+                        this._random.Next(0, 220),
+                        this._random.Next(0, 220),
+                        this._random.Next(0, 220)),
+                    new Vector2D(this._random.Next(1, radius), this._random.Next(1, radius)), 
+                    this._simulation.Border,
+                    this._simulation
                 );
             }
             
             // TODO: Generate a ball here but make sure it does not collide with any of the other balls!
-            var ballRadius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+            var ballRadius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
             return new RepellentBall(
                 ballRadius,
                 new Vector2D(
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Width - ballRadius),
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Height - ballRadius)),
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Width - ballRadius),
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Height - ballRadius)),
                 Color.FromArgb(
-                    _random.Next(0, 220),
-                    _random.Next(0, 220),
-                    _random.Next(0, 220)),
-                new Vector2D(_random.Next(1, ballRadius), _random.Next(1, ballRadius)), 
-                _simulation.Border,
-                _simulation
+                    this._random.Next(0, 220),
+                    this._random.Next(0, 220),
+                    this._random.Next(0, 220)),
+                new Vector2D(this._random.Next(1, ballRadius), this._random.Next(1, ballRadius)), 
+                this._simulation.Border,
+                this._simulation
             );
         }
         
@@ -106,26 +106,26 @@ namespace BigBallGame.Simulation
         {
             if (balls == null || balls.Count == 0)
             {
-                var radius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+                var radius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
                 return new MonsterBall(
                     radius,
                     new Vector2D(
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Width - radius),
-                        _random.Next(0 + radius, _simulation.Gui.ClientSize.Height - radius)),
-                    _simulation.Border,
-                    _simulation
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Width - radius),
+                        this._random.Next(0 + radius, this._simulation.Gui.ClientSize.Height - radius)),
+                    this._simulation.Border,
+                    this._simulation
                 );
             }
             
             // TODO: Generate a ball here but make sure it does not collide with any of the other balls!
-            var ballRadius = _random.Next(_simulation.MinBallRadius, _simulation.MaxBallRadius);
+            var ballRadius = this._random.Next(this._simulation.MinBallRadius, this._simulation.MaxBallRadius);
             return new MonsterBall(
                 ballRadius,
                 new Vector2D(
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Width - ballRadius),
-                    _random.Next(0 + ballRadius, _simulation.Gui.ClientSize.Height - ballRadius)),
-                _simulation.Border,
-                _simulation
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Width - ballRadius),
+                    this._random.Next(0 + ballRadius, this._simulation.Gui.ClientSize.Height - ballRadius)),
+                this._simulation.Border,
+                this._simulation
             );
         }
     }

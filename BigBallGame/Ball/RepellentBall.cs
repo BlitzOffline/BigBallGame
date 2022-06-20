@@ -5,21 +5,27 @@ namespace BigBallGame.Ball
 {
     public class RepellentBall : Ball
     {
-        public RepellentBall(int radius, Vector2D center, Color color, Vector2D velocity, Border border, Simulation.Simulation simulation)
-            : base(radius, center, color, velocity, border, simulation)
+        public RepellentBall(
+            int radius,
+            Vector2D center,
+            Color color,
+            Vector2D velocity,
+            Border border,
+            Simulation.Simulation simulation) : base(radius, center, color, velocity, border, simulation)
         {
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics graphics)
         {
-            base.Draw(g);
+            base.Draw(graphics);
 
             var color = Color.FromArgb(
                 this.Color.A,
                 255 - this.Color.R,
                 this.Color.G, 
                 255 - this.Color.B);
-            g.DrawEllipse(
+            
+            graphics.DrawEllipse(
                 new Pen(color, 5),
                 this.Center.X - this.Radius,
                 this.Center.Y - this.Radius,
@@ -63,17 +69,17 @@ namespace BigBallGame.Ball
             Vector2D mtd;
             if (d != 0.0f)
             {
-                mtd = delta.Multiply(Radius/d);
+                mtd = delta.Multiply(this.Radius/d);
             }
             else 
             {
-                d = other.Radius + Radius - 1.0f;
-                delta = new Vector2D(other.Radius + Radius, 0.0f);
+                d = other.Radius + this.Radius - 1.0f;
+                delta = new Vector2D(other.Radius + this.Radius, 0.0f);
 
-                mtd = delta.Multiply(Radius/d);
+                mtd = delta.Multiply(this.Radius/d);
             }
                     
-            Center = Center.Add(mtd);
+            this.Center = this.Center.Add(mtd);
             this.Velocity = this.Velocity.Add(mtd);
         }
     }

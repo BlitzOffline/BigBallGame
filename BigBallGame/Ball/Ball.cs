@@ -18,67 +18,81 @@ namespace BigBallGame.Ball
         public Color Color { get; set; }
         
         // Previous Center and Velocity are saved for debugging purposes
-        public Vector2D PreviousCenter { get; set; }
-        public Vector2D PreviousVelocity { get; set; }
+        private Vector2D PreviousCenter { get; set; }
+        private Vector2D PreviousVelocity { get; set; }
 
-        protected Ball(int radius, Vector2D center, Color color, Vector2D velocity, Border border, Simulation.Simulation simulation)
+        protected Ball(
+            int radius,
+            Vector2D center,
+            Color color,
+            Vector2D velocity,
+            Border border,
+            Simulation.Simulation simulation)
         {
-            Radius = radius;
-            Center = center;
-            Color = color;
-            Velocity = velocity;
+            this.Radius = radius;
+            this.Center = center;
+            this.Color = color;
+            this.Velocity = velocity;
             
-            PreviousCenter = Center;
-            PreviousVelocity = Velocity;
+            this.PreviousCenter = this.Center;
+            this.PreviousVelocity = this.Velocity;
             
-            _border = border;
-            _simulation = simulation;
+            this._border = border;
+            this._simulation = simulation;
         }
         
-        public virtual void Draw(Graphics g)
+        public virtual void Draw(Graphics graphics)
         {
-            g.DrawBall(this);
-            if (!_simulation.Debug) return;
+            graphics.DrawBall(this);
+            if (!this._simulation.Debug) return;
             
-            DrawLastTrajectory(g);
-            DrawNextTrajectory(g);
+            this.DrawLastTrajectory(graphics);
+            this.DrawNextTrajectory(graphics);
         }
 
         public virtual void Move()
         {
-            PreviousCenter = Center;
-            PreviousVelocity = Velocity;
+            this.PreviousCenter = this.Center;
+            this.PreviousVelocity = this.Velocity;
             
-            Center = Center.Add(Velocity);
+            this.Center = this.Center.Add(this.Velocity);
 
-            if (Center.X - Radius < _border.MinX)
+            if (this.Center.X - this.Radius < this._border.MinX)
             {
-                Velocity.X = -Velocity.X;
-                Center = new Vector2D(_border.MinX + Math.Abs(Center.X - _border.MinX) + Radius, Center.Y);
+                this.Velocity.X = -this.Velocity.X;
+                this.Center = new Vector2D(
+                    this._border.MinX + Math.Abs(this.Center.X - this._border.MinX) + this.Radius,
+                    this.Center.Y);
             }
 
-            if (Center.X + Radius > _border.MaxX)
+            if (this.Center.X + this.Radius > this._border.MaxX)
             {
-                Velocity.X = -Velocity.X;
-                Center = new Vector2D(_border.MaxX - Math.Abs(Center.X - _border.MaxX) - Radius, Center.Y);
+                this.Velocity.X = -this.Velocity.X;
+                this.Center = new Vector2D(
+                    this._border.MaxX - Math.Abs(this.Center.X - this._border.MaxX) - this.Radius,
+                    this.Center.Y);
             }
             
-            if (Center.Y - Radius < _border.MinY)
+            if (this.Center.Y - this.Radius < this._border.MinY)
             {
-                Velocity.Y = -Velocity.Y;
-                Center = new Vector2D(Center.X, _border.MinY + Math.Abs(Center.Y - _border.MinY) + Radius);
+                this.Velocity.Y = -this.Velocity.Y;
+                this.Center = new Vector2D(
+                    this.Center.X,
+                    this._border.MinY + Math.Abs(this.Center.Y - this._border.MinY) + this.Radius);
             }
             
-            if (Center.Y + Radius > _border.MaxY)
+            if (this.Center.Y + this.Radius > this._border.MaxY)
             {
-                Velocity.Y = -Velocity.Y;
-                Center = new Vector2D(Center.X, _border.MaxY - Math.Abs(Center.Y - _border.MaxY) - Radius);
+                this.Velocity.Y = -this.Velocity.Y;
+                this.Center = new Vector2D(
+                    this.Center.X,
+                    this._border.MaxY - Math.Abs(this.Center.Y - this._border.MaxY) - this.Radius);
             }
         }
 
         public virtual bool CollideWith(IBall other)
         {
-            if (!CollidesWith(other))
+            if (!this.CollidesWith(other))
             {
                 return false;
             }
@@ -139,17 +153,17 @@ namespace BigBallGame.Ball
             Vector2D mtd;
             if (d != 0.0f)
             {
-                mtd = delta.Multiply((Radius + other.Radius-d)/d);
+                mtd = delta.Multiply((this.Radius + other.Radius-d)/d);
             }
             else 
             {
-                d = other.Radius + Radius - 1.0f;
-                delta = new Vector2D(other.Radius + Radius, 0.0f);
+                d = other.Radius + this.Radius - 1.0f;
+                delta = new Vector2D(other.Radius + this.Radius, 0.0f);
         
-                mtd = delta.Multiply((Radius + other.Radius-d)/d);
+                mtd = delta.Multiply((this.Radius + other.Radius-d)/d);
             }
                     
-            Center = Center.Add(mtd.Multiply(0.5f));
+            this.Center = this.Center.Add(mtd.Multiply(0.5f));
             other.Center = other.Center.Subtract(mtd.Multiply(0.5f));
         
             // impact speed
@@ -164,45 +178,64 @@ namespace BigBallGame.Ball
         }
 
 
-        private void DrawLastTrajectory(Graphics g)
+        private void DrawLastTrajectory(Graphics graphics)
         {
-            var color = Color.FromArgb(this.Color.A, 255 - this.Color.R, 255 - this.Color.G, 255 - this.Color.B);
+            var color = Color.FromArgb(
+                this.Color.A,
+                255 - this.Color.R,
+                255 - this.Color.G,
+                255 - this.Color.B);
 
             // DISPLAY PREVIOUS POSITION
-            g.DrawLine(new Pen(color, 1), this.PreviousCenter.ToPointF(), this.PreviousCenter.Add(this.PreviousVelocity).ToPointF());
-            g.DrawLine(new Pen(color, 1), this.PreviousCenter.Add(this.PreviousVelocity).ToPointF(), Center.ToPointF());
+            graphics.DrawLine(
+                new Pen(color, 1),
+                this.PreviousCenter.ToPointF(),
+                this.PreviousCenter.Add(this.PreviousVelocity).ToPointF());
+            
+            graphics.DrawLine(
+                new Pen(color, 1),
+                this.PreviousCenter.Add(this.PreviousVelocity).ToPointF(),
+                this.Center.ToPointF());
         }
         
-        private void DrawNextTrajectory(Graphics g)
+        private void DrawNextTrajectory(Graphics graphics)
         {
             // PREDICT NEXT POSITION
-            var nextCenter = PredictNextPosition();
-            g.DrawLine(BlackPen, this.Center.ToPointF(), this.Center.Add(this.Velocity).ToPointF());
-            g.DrawLine(BlackPen, this.Center.Add(this.Velocity).ToPointF(), nextCenter.ToPointF());
+            var nextCenter = this.PredictNextPosition();
+            graphics.DrawLine(BlackPen, this.Center.ToPointF(), this.Center.Add(this.Velocity).ToPointF());
+            graphics.DrawLine(BlackPen, this.Center.Add(this.Velocity).ToPointF(), nextCenter.ToPointF());
         }
         
         private Vector2D PredictNextPosition()
         {
             var newCenter = this.Center.Add(this.Velocity);
             
-            if (newCenter.X - Radius < _border.MinX)
+            if (newCenter.X - this.Radius < this._border.MinX)
             {
-                newCenter = new Vector2D(_border.MinX + Math.Abs(newCenter.X - _border.MinX) + Radius, newCenter.Y);
+                newCenter = new Vector2D(
+                    this._border.MinX + Math.Abs(newCenter.X - this._border.MinX) + this.Radius,
+                    newCenter.Y);
             }
 
-            if (newCenter.X + Radius > _border.MaxX)
+            if (newCenter.X + this.Radius > this._border.MaxX)
             {
-                newCenter = new Vector2D(_border.MaxX - Math.Abs(newCenter.X - _border.MaxX) - Radius, newCenter.Y);
+                newCenter = new Vector2D(
+                    this._border.MaxX - Math.Abs(newCenter.X - this._border.MaxX) - this.Radius,
+                    newCenter.Y);
             }
 
-            if (newCenter.Y - Radius < _border.MinY)
+            if (newCenter.Y - this.Radius < this._border.MinY)
             {
-                newCenter = new Vector2D(newCenter.X, _border.MinY + Math.Abs(newCenter.Y - _border.MinY) + Radius);
+                newCenter = new Vector2D(
+                    newCenter.X,
+                    this._border.MinY + Math.Abs(newCenter.Y - this._border.MinY) + this.Radius);
             }
 
-            if (newCenter.Y + Radius > _border.MaxY)
+            if (newCenter.Y + this.Radius > this._border.MaxY)
             {
-                newCenter = new Vector2D(newCenter.X, _border.MaxY - Math.Abs(newCenter.Y - _border.MaxY) - Radius);
+                newCenter = new Vector2D(
+                    newCenter.X,
+                    this._border.MaxY - Math.Abs(newCenter.Y - this._border.MaxY) - this.Radius);
             }
 
             return newCenter;
