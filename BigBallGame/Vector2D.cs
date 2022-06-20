@@ -6,32 +6,29 @@ public class Vector2D
 {
     public float X { get; set; }
     public float Y { get; set; }
-    public float Length { get; private set; }
+    public float Length => (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
 
     public Vector2D()
     {
         this.X = 0;
         this.Y = 0;
-        Length = 0;
     }
 
     public Vector2D(float x, float y)
     {
         this.X = x;
         this.Y = y;
-        Length = (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
     }
 
     public void Set(float x, float y)
     {
         this.X = x;
         this.Y = y;
-        Length = (float) Math.Sqrt(this.X * this.X + this.Y * this.Y);
     }
 
     public float Dot(Vector2D other)
     {
-        return this.X * other.X + this.Y * other.Y;;
+        return this.X * other.X + this.Y * other.Y;
     }
     
     public float GetDistance(Vector2D other)

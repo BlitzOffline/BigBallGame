@@ -46,7 +46,7 @@ namespace BigBallGame.Ball
                 case MonsterBall monsterBall:
                     this.HandleMonsterBallCollision(monsterBall);
                     this.Radius /= 2;
-                    return this.Radius <= 0;
+                    return this.Radius < 1f;
                 case RepellentBall repellentBall:
                     this.HandleRepellentBallCollision(repellentBall);
                     return false;
