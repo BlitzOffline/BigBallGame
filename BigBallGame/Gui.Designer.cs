@@ -80,7 +80,6 @@ namespace BigBallGame
             this.debugModeCheckBox.TabIndex = 2;
             this.debugModeCheckBox.Text = "Debug Mode";
             this.debugModeCheckBox.UseVisualStyleBackColor = true;
-            this.debugModeCheckBox.CheckedChanged += new System.EventHandler(this.OnDebugModeCheckBoxCheckedChanged);
             // 
             // automateTickingCheckBox
             // 
@@ -92,7 +91,6 @@ namespace BigBallGame
             this.automateTickingCheckBox.TabIndex = 3;
             this.automateTickingCheckBox.Text = "Automate Ticking";
             this.automateTickingCheckBox.UseVisualStyleBackColor = true;
-            this.automateTickingCheckBox.CheckedChanged += new System.EventHandler(this.OnAutomateTickingCheckBoxCheckedChanged);
             // 
             // settingsGroupBox
             // 
@@ -131,7 +129,6 @@ namespace BigBallGame
             this.textBox6.Size = new System.Drawing.Size(108, 22);
             this.textBox6.TabIndex = 17;
             this.textBox6.Text = "20";
-            this.textBox6.TextChanged += new System.EventHandler(this.OnTickTimeChange);
             // 
             // label5
             // 
@@ -149,7 +146,6 @@ namespace BigBallGame
             this.textBox5.Size = new System.Drawing.Size(108, 22);
             this.textBox5.TabIndex = 16;
             this.textBox5.Text = "35";
-            this.textBox5.TextChanged += new System.EventHandler(this.OnBallMaxRadiusChange);
             // 
             // label4
             // 
@@ -167,7 +163,6 @@ namespace BigBallGame
             this.textBox4.Size = new System.Drawing.Size(108, 22);
             this.textBox4.TabIndex = 15;
             this.textBox4.Text = "15";
-            this.textBox4.TextChanged += new System.EventHandler(this.OnBallMinRadiusChange);
             // 
             // label3
             // 
@@ -185,7 +180,6 @@ namespace BigBallGame
             this.textBox3.Size = new System.Drawing.Size(108, 22);
             this.textBox3.TabIndex = 14;
             this.textBox3.Text = "1";
-            this.textBox3.TextChanged += new System.EventHandler(this.OnMonsterBallsAmountChange);
             // 
             // label2
             // 
@@ -203,7 +197,6 @@ namespace BigBallGame
             this.textBox2.Size = new System.Drawing.Size(108, 22);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "5";
-            this.textBox2.TextChanged += new System.EventHandler(this.OnRepellentBallsAmountChange);
             // 
             // label1
             // 
@@ -221,7 +214,6 @@ namespace BigBallGame
             this.textBox1.Size = new System.Drawing.Size(108, 22);
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "10";
-            this.textBox1.TextChanged += new System.EventHandler(this.OnRegularBallsAmountChange);
             // 
             // label7
             // 
@@ -239,7 +231,7 @@ namespace BigBallGame
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1000, 750);
+            this.ClientSize = new System.Drawing.Size(1002, 758);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.automateTickingCheckBox);
