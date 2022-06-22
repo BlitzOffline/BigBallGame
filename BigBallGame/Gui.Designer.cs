@@ -35,7 +35,7 @@ namespace BigBallGame
             this.simulationTickButtom = new System.Windows.Forms.Button();
             this.debugModeCheckBox = new System.Windows.Forms.CheckBox();
             this.automateTickingCheckBox = new System.Windows.Forms.CheckBox();
-            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.moreSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,13 +48,17 @@ namespace BigBallGame
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.showDirectionsCheckBox = new System.Windows.Forms.CheckBox();
+            this.enableConsoleCheckBox = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.moreSettingsGroupBox.SuspendLayout();
             this.settingsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // simulationStartButton
             // 
-            this.simulationStartButton.Location = new System.Drawing.Point(12, 69);
+            this.simulationStartButton.Location = new System.Drawing.Point(127, 12);
             this.simulationStartButton.Name = "simulationStartButton";
             this.simulationStartButton.Size = new System.Drawing.Size(109, 51);
             this.simulationStartButton.TabIndex = 0;
@@ -68,50 +72,52 @@ namespace BigBallGame
             this.simulationTickButtom.Name = "simulationTickButtom";
             this.simulationTickButtom.Size = new System.Drawing.Size(109, 51);
             this.simulationTickButtom.TabIndex = 1;
+            this.simulationTickButtom.TabStop = false;
             this.simulationTickButtom.Text = "Tick Simulation";
             this.simulationTickButtom.UseVisualStyleBackColor = true;
             this.simulationTickButtom.Click += new System.EventHandler(this.OnSimulationTickButtonClick);
             // 
             // debugModeCheckBox
             // 
-            this.debugModeCheckBox.Location = new System.Drawing.Point(127, 12);
+            this.debugModeCheckBox.Location = new System.Drawing.Point(6, 21);
             this.debugModeCheckBox.Name = "debugModeCheckBox";
             this.debugModeCheckBox.Size = new System.Drawing.Size(108, 51);
             this.debugModeCheckBox.TabIndex = 2;
             this.debugModeCheckBox.Text = "Debug Mode";
             this.debugModeCheckBox.UseVisualStyleBackColor = true;
+            this.debugModeCheckBox.Click += new System.EventHandler(this.OnDebugModeCheckBoxClick);
             // 
             // automateTickingCheckBox
             // 
             this.automateTickingCheckBox.Checked = true;
             this.automateTickingCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.automateTickingCheckBox.Location = new System.Drawing.Point(127, 69);
+            this.automateTickingCheckBox.Location = new System.Drawing.Point(6, 78);
             this.automateTickingCheckBox.Name = "automateTickingCheckBox";
             this.automateTickingCheckBox.Size = new System.Drawing.Size(108, 51);
             this.automateTickingCheckBox.TabIndex = 3;
             this.automateTickingCheckBox.Text = "Automate Ticking";
             this.automateTickingCheckBox.UseVisualStyleBackColor = true;
             // 
-            // settingsGroupBox
+            // moreSettingsGroupBox
             // 
-            this.settingsGroupBox.Controls.Add(this.label6);
-            this.settingsGroupBox.Controls.Add(this.textBox6);
-            this.settingsGroupBox.Controls.Add(this.label5);
-            this.settingsGroupBox.Controls.Add(this.textBox5);
-            this.settingsGroupBox.Controls.Add(this.label4);
-            this.settingsGroupBox.Controls.Add(this.textBox4);
-            this.settingsGroupBox.Controls.Add(this.label3);
-            this.settingsGroupBox.Controls.Add(this.textBox3);
-            this.settingsGroupBox.Controls.Add(this.label2);
-            this.settingsGroupBox.Controls.Add(this.textBox2);
-            this.settingsGroupBox.Controls.Add(this.label1);
-            this.settingsGroupBox.Controls.Add(this.textBox1);
-            this.settingsGroupBox.Location = new System.Drawing.Point(12, 126);
-            this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(353, 174);
-            this.settingsGroupBox.TabIndex = 4;
-            this.settingsGroupBox.TabStop = false;
-            this.settingsGroupBox.Text = "Settings";
+            this.moreSettingsGroupBox.Controls.Add(this.label6);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox6);
+            this.moreSettingsGroupBox.Controls.Add(this.label5);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox5);
+            this.moreSettingsGroupBox.Controls.Add(this.label4);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox4);
+            this.moreSettingsGroupBox.Controls.Add(this.label3);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox3);
+            this.moreSettingsGroupBox.Controls.Add(this.label2);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox2);
+            this.moreSettingsGroupBox.Controls.Add(this.label1);
+            this.moreSettingsGroupBox.Controls.Add(this.textBox1);
+            this.moreSettingsGroupBox.Location = new System.Drawing.Point(12, 215);
+            this.moreSettingsGroupBox.Name = "moreSettingsGroupBox";
+            this.moreSettingsGroupBox.Size = new System.Drawing.Size(353, 174);
+            this.moreSettingsGroupBox.TabIndex = 4;
+            this.moreSettingsGroupBox.TabStop = false;
+            this.moreSettingsGroupBox.Text = "More Settings";
             // 
             // label6
             // 
@@ -215,15 +221,48 @@ namespace BigBallGame
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "10";
             // 
+            // settingsGroupBox
+            // 
+            this.settingsGroupBox.Controls.Add(this.showDirectionsCheckBox);
+            this.settingsGroupBox.Controls.Add(this.enableConsoleCheckBox);
+            this.settingsGroupBox.Controls.Add(this.debugModeCheckBox);
+            this.settingsGroupBox.Controls.Add(this.automateTickingCheckBox);
+            this.settingsGroupBox.Location = new System.Drawing.Point(12, 69);
+            this.settingsGroupBox.Name = "settingsGroupBox";
+            this.settingsGroupBox.Size = new System.Drawing.Size(353, 140);
+            this.settingsGroupBox.TabIndex = 5;
+            this.settingsGroupBox.TabStop = false;
+            this.settingsGroupBox.Text = "Settings";
+            // 
+            // showDirectionsCheckBox
+            // 
+            this.showDirectionsCheckBox.Location = new System.Drawing.Point(120, 78);
+            this.showDirectionsCheckBox.Name = "showDirectionsCheckBox";
+            this.showDirectionsCheckBox.Size = new System.Drawing.Size(108, 51);
+            this.showDirectionsCheckBox.TabIndex = 5;
+            this.showDirectionsCheckBox.Text = "Show Directions\r\n";
+            this.showDirectionsCheckBox.UseVisualStyleBackColor = true;
+            this.showDirectionsCheckBox.Click += new System.EventHandler(this.OnShowDirectionCheckBoxClick);
+            // 
+            // enableConsoleCheckBox
+            // 
+            this.enableConsoleCheckBox.Location = new System.Drawing.Point(120, 21);
+            this.enableConsoleCheckBox.Name = "enableConsoleCheckBox";
+            this.enableConsoleCheckBox.Size = new System.Drawing.Size(108, 51);
+            this.enableConsoleCheckBox.TabIndex = 4;
+            this.enableConsoleCheckBox.Text = "Enable Console";
+            this.enableConsoleCheckBox.UseVisualStyleBackColor = true;
+            this.enableConsoleCheckBox.Click += new System.EventHandler(this.OnEnableConsoleCheckBoxClick);
+            // 
             // label7
             // 
-            this.label7.BackColor = System.Drawing.SystemColors.GrayText;
-            this.label7.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label7.Location = new System.Drawing.Point(12, 303);
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Location = new System.Drawing.Point(717, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(353, 44);
-            this.label7.TabIndex = 11;
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Size = new System.Drawing.Size(271, 200);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "FPS: 0\r\nDistance Traveled Last Frame: 0";
             this.label7.Visible = false;
             // 
             // Gui
@@ -234,27 +273,30 @@ namespace BigBallGame
             this.ClientSize = new System.Drawing.Size(1000, 750);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.settingsGroupBox);
-            this.Controls.Add(this.automateTickingCheckBox);
-            this.Controls.Add(this.debugModeCheckBox);
+            this.Controls.Add(this.moreSettingsGroupBox);
             this.Controls.Add(this.simulationTickButtom);
             this.Controls.Add(this.simulationStartButton);
             this.DoubleBuffered = true;
             this.Name = "Gui";
             this.Text = "Big Ball Game";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.moreSettingsGroupBox.ResumeLayout(false);
+            this.moreSettingsGroupBox.PerformLayout();
             this.settingsGroupBox.ResumeLayout(false);
-            this.settingsGroupBox.PerformLayout();
             this.ResumeLayout(false);
         }
-
+        
         private System.Windows.Forms.Button simulationStartButton;
         private System.Windows.Forms.Button simulationTickButtom;
+        
         private System.Windows.Forms.CheckBox debugModeCheckBox;
         private System.Windows.Forms.CheckBox automateTickingCheckBox;
+        private System.Windows.Forms.CheckBox enableConsoleCheckBox;
+        private System.Windows.Forms.CheckBox showDirectionsCheckBox;
 
-
+        private System.Windows.Forms.GroupBox moreSettingsGroupBox;
         private System.Windows.Forms.GroupBox settingsGroupBox;
-        
+
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;

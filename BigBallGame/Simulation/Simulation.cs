@@ -8,18 +8,21 @@ namespace BigBallGame.Simulation;
 
 public class Simulation
 {
-    public bool Debug = false;
-    public bool AutomateTicking = true;
+    public readonly bool Debug;
+    public readonly bool ShowDirections;
+    public readonly bool AutomateTicking;
     
     // Sets every how many milliseconds the simulation should try and update
-    public int TickTime = 20;
-    
-    public int RegularBallsAmount = 10;
-    public int RepellentBallsAmount = 5;
-    public int MonsterBallsAmount = 1;
+    private readonly int _tickTime;
 
-    public int MinBallRadius = 15;
-    public int MaxBallRadius = 35;
+    private readonly int _regularBallsAmount;
+    private readonly int _repellentBallsAmount;
+    private readonly int _monsterBallsAmount;
+
+    public readonly int MinBallRadius;
+    public readonly int MaxBallRadius;
+
+    public float FpsCounter { get; private set; }
     
     public readonly Gui Gui;
     public readonly Border Border;
@@ -27,8 +30,35 @@ public class Simulation
     private readonly List<IBall> _balls = new();
     private readonly BallGenerator _ballGenerator;
     
-    public Simulation(Gui gui)
+    public Simulation(
+        Gui gui,
+        bool debug,
+        bool showDirections,
+        bool automateTicking,
+        int tickTime,
+        int regularBallsAmount,
+        int repellentBallsAmount,
+        int monsterBallsAmount,
+        int minBallRadius,
+        int maxBallRadius)
     {
+        this.Gui = gui;
+        
+        this.Debug = debug;
+        this.ShowDirections = showDirections;
+        this.AutomateTicking = automateTicking;
+        
+        this._tickTime = tickTime;
+
+        this._regularBallsAmount = regularBallsAmount;
+        this._repellentBallsAmount = repellentBallsAmount;
+        this._monsterBallsAmount = monsterBallsAmount;
+        
+        this.MinBallRadius = minBallRadius;
+        this.MaxBallRadius = maxBallRadius;
+
+        this.FpsCounter = 0f;
+
         this.Gui = gui;
         this.Border.MinX = 0;
         this.Border.MinY = 0;
@@ -63,8 +93,17 @@ public class Simulation
             var currentFrameTime = Environment.TickCount;
             var passedTime = currentFrameTime - lastFrameTime;
             this.SendDebugMessage("Passed time: " + passedTime);
-            var remaining = this.TickTime - passedTime;
+            var remaining = this._tickTime - passedTime;
             lastFrameTime = currentFrameTime;
+
+            if (remaining >= 0)
+            {
+                this.FpsCounter = 1000f / this._tickTime;
+            }
+            else
+            {
+                this.FpsCounter = 1000f / (this._tickTime + -remaining);
+            }
             if (remaining > 0) Thread.Sleep(remaining);
         }
     }
@@ -115,18 +154,18 @@ public class Simulation
 
     private void GenerateBalls()
     {
-        while (this._balls.Count < this.RegularBallsAmount)
+        while (this._balls.Count < this._regularBallsAmount)
         {
             this._balls.Add(this._ballGenerator.GenerateRegularBall());
         }
 
-        while (this._balls.Count < this.RegularBallsAmount + this.RepellentBallsAmount)
+        while (this._balls.Count < this._regularBallsAmount + this._repellentBallsAmount)
         {
             this._balls.Add(this._ballGenerator.GenerateRepellentBall());
         }
             
             
-        while (this._balls.Count < this.RegularBallsAmount + this.RepellentBallsAmount + this.MonsterBallsAmount)
+        while (this._balls.Count < this._regularBallsAmount + this._repellentBallsAmount + this._monsterBallsAmount)
         {
             this._balls.Add(this._ballGenerator.GenerateMonsterBall());
         }
@@ -138,7 +177,7 @@ public class Simulation
         return this._balls.ToList();
     }
 
-    public void SendDebugMessage(string message)
+    public void SendDebugMessage(string message = "")
     {
         if (this.Debug) Console.WriteLine(message);
     }

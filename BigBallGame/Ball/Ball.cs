@@ -44,7 +44,7 @@ namespace BigBallGame.Ball
         public virtual void Draw(Graphics graphics)
         {
             graphics.DrawBall(this);
-            if (!this._simulation.Debug) return;
+            if (!this._simulation.Debug || !this._simulation.ShowDirections) return;
             
             this.DrawLastTrajectory(graphics);
             this.DrawNextTrajectory(graphics);

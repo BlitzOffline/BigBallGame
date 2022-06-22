@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Drawing;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -26,38 +26,38 @@ namespace BigBallGame
                 ball.Draw(e.Graphics);
                 distance += ball.Center.GetDistance(ball.Center.Add(ball.Velocity));
             }
-            
-            if (this._simulation.Debug) e.Graphics.DrawString(
-                "Distance to be traveled next tick: " + distance,
-                SystemFonts.DefaultFont,
-                Brushes.Black,
-                130,
-                0);
+
+            this.label7.Text = "FPS: " + this._simulation.FpsCounter + 
+                               Environment.NewLine +
+                               "Distance Traveled Last Frame: " + distance;
         }
 
         private void OnSimulationStartButtonClick(object sender, EventArgs e)
         {
             var successful = int.TryParse(this.textBox1.Text, out var regularBallsAmount);
 
-            if (!successful || regularBallsAmount < 1)
+            if (!successful || regularBallsAmount < 0 || (regularBallsAmount < 1 && !this.debugModeCheckBox.Checked))
             {
-                MessageBox.Show("Regular balls amount must be a positive number.");
+                SystemSounds.Exclamation.Play();
+                MessageBox.Show("Regular balls amount must be a positive number unless debug mode is enabled.");
                 return;
             }
             
             successful = int.TryParse(this.textBox2.Text, out var repellentBallsAmount);
             
-            if (!successful || repellentBallsAmount < 1)
+            if (!successful || repellentBallsAmount < 0 || (repellentBallsAmount < 1 && !this.debugModeCheckBox.Checked))
             {
-                MessageBox.Show("Repellent balls amount must be a positive number.");
+                SystemSounds.Exclamation.Play();
+                MessageBox.Show("Repellent balls amount must be a positive number unless debug mode is enabled.");
                 return;
             }
             
             successful = int.TryParse(this.textBox3.Text, out var monsterBallsAmount);
             
-            if (!successful || monsterBallsAmount < 1)
+            if (!successful || monsterBallsAmount < 0 || (monsterBallsAmount < 1 && !this.debugModeCheckBox.Checked))
             {
-                MessageBox.Show("Monster balls amount must be a positive number.");
+                SystemSounds.Exclamation.Play();
+                MessageBox.Show("Monster balls amount must be a positive number unless debug mode is enabled.");
                 return;
             }
             
@@ -65,6 +65,7 @@ namespace BigBallGame
             
             if (!successful || minBallRadius < 1)
             {
+                SystemSounds.Exclamation.Play();
                 MessageBox.Show("Minimum ball radius must be a positive number.");
                 return;
             }
@@ -73,40 +74,45 @@ namespace BigBallGame
 
             if (!successful || maxBallRadius <= minBallRadius)
             {
+                SystemSounds.Exclamation.Play();
                 MessageBox.Show("Maximum ball radius must be greater than minimum ball radius.");
                 return;
             }
             
             successful = int.TryParse(this.textBox6.Text, out var tickTime);
 
-            if (!successful || tickTime < 20)
+            if (!successful || tickTime < 1 || (tickTime < 20 && !this.debugModeCheckBox.Checked))
             {
-                MessageBox.Show("Tick Time must be a number equal to or greater than 20!");
+                SystemSounds.Exclamation.Play();
+                MessageBox.Show("Tick Time must be a number equal to or greater than 20 unless debug mode is enabled.");
                 return;
             }
 
-            this._simulation = new Simulation.Simulation(this)
-            {
-                AutomateTicking = this.automateTickingCheckBox.Checked,
-                Debug = this.debugModeCheckBox.Checked,
+            this._simulation = new Simulation.Simulation(
+                this,
                 
-                TickTime = tickTime,
+                this.debugModeCheckBox.Checked,
+                this.showDirectionsCheckBox.Checked,
+                this.automateTickingCheckBox.Checked,
                 
-                RegularBallsAmount = regularBallsAmount,
-                RepellentBallsAmount = repellentBallsAmount,
-                MonsterBallsAmount = monsterBallsAmount,
+                tickTime,
                 
-                MinBallRadius = minBallRadius,
-                MaxBallRadius = maxBallRadius + 1
-            };
+                regularBallsAmount,
+                repellentBallsAmount,
+                monsterBallsAmount,
+                
+                minBallRadius,
+                maxBallRadius + 1);
 
             this.simulationStartButton.Hide();
             this.debugModeCheckBox.Hide();
             this.automateTickingCheckBox.Hide();
+            this.enableConsoleCheckBox.Hide();
             this.settingsGroupBox.Hide();
-            this.label7.Hide();
+            this.moreSettingsGroupBox.Hide();
 
-            if (this._simulation.Debug) AllocConsole();
+            if (this._simulation.Debug && this.enableConsoleCheckBox.Checked) AllocConsole();
+            if (this._simulation.Debug) this.label7.Show();
             if (this._simulation.AutomateTicking)
             {
                 this.simulationTickButtom.Hide();
@@ -123,7 +129,45 @@ namespace BigBallGame
         
         private void OnSimulationTickButtonClick(object sender, EventArgs e)
         {
-            this._simulation?.TickSimulation();
+            if (_simulation == null)
+            {
+                SystemSounds.Exclamation.Play();
+                MessageBox.Show("Simulation has not been started yet.");
+                return;
+            }
+            
+            this._simulation.TickSimulation();
+        }
+
+        private void OnDebugModeCheckBoxClick(object sender, EventArgs e)
+        {
+            if (this.debugModeCheckBox.Checked)
+            {
+                this.label7.Show();
+                return;
+            }
+            
+            this.label7.Hide();
+            this.enableConsoleCheckBox.Checked = false;
+            this.showDirectionsCheckBox.Checked = false;
+        }
+        
+        private void OnEnableConsoleCheckBoxClick(object sender, EventArgs e)
+        {
+            if (this.debugModeCheckBox.Checked) return;
+            
+            SystemSounds.Exclamation.Play();
+            this.enableConsoleCheckBox.Checked = false;
+            MessageBox.Show("Console can only be enabled in debug mode.");
+        }
+
+        private void OnShowDirectionCheckBoxClick(object sender, EventArgs e)
+        {
+            if (this.debugModeCheckBox.Checked) return;
+            
+            SystemSounds.Exclamation.Play();
+            this.showDirectionsCheckBox.Checked = false;
+            MessageBox.Show("Direction can only be shown in debug mode.");
         }
 
 
