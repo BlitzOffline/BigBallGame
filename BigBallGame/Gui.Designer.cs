@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace BigBallGame
 {
@@ -270,7 +271,8 @@ namespace BigBallGame
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1000, 750);
+            this.ClientSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            this.WindowState = FormWindowState.Maximized;
             this.Controls.Add(this.label7);
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.moreSettingsGroupBox);

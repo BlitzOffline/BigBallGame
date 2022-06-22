@@ -43,6 +43,7 @@ namespace BigBallGame.Ball
         
         public virtual void Draw(Graphics graphics)
         {
+            graphics.DrawCircle(Pens.DimGray, this.Center.Add(new Vector2D(5, 5)).ToPointF(), this.Radius);
             graphics.DrawBall(this);
             if (!this._simulation.Debug || !this._simulation.ShowDirections) return;
             

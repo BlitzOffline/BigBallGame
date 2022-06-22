@@ -42,7 +42,7 @@ namespace BigBallGame.Simulation
                         this._random.Next(0, 220),
                         this._random.Next(0, 220),
                         this._random.Next(0, 220)),
-                    new Vector2D(this._random.Next(1, radius), this._random.Next(1, radius)), 
+                    new Vector2D(this._random.Next(-radius + 1, radius), this._random.Next(-radius + 1, radius)), 
                     this._simulation.Border,
                     this._simulation
                 );
@@ -59,7 +59,7 @@ namespace BigBallGame.Simulation
                     this._random.Next(0, 220),
                     this._random.Next(0, 220),
                     this._random.Next(0, 220)),
-                new Vector2D(this._random.Next(1, ballRadius), this._random.Next(1, ballRadius)), 
+                new Vector2D(this._random.Next(-ballRadius + 1, ballRadius), this._random.Next(-ballRadius + 1, ballRadius)), 
                 this._simulation.Border,
                 this._simulation
             );
@@ -79,7 +79,7 @@ namespace BigBallGame.Simulation
                         this._random.Next(0, 220),
                         this._random.Next(0, 220),
                         this._random.Next(0, 220)),
-                    new Vector2D(this._random.Next(1, radius), this._random.Next(1, radius)), 
+                    new Vector2D(this._random.Next(-radius + 1, radius), this._random.Next(-radius + 1, radius)), 
                     this._simulation.Border,
                     this._simulation
                 );
@@ -96,7 +96,7 @@ namespace BigBallGame.Simulation
                     this._random.Next(0, 220),
                     this._random.Next(0, 220),
                     this._random.Next(0, 220)),
-                new Vector2D(this._random.Next(1, ballRadius), this._random.Next(1, ballRadius)), 
+                new Vector2D(this._random.Next(-ballRadius + 1, ballRadius), this._random.Next(-ballRadius + 1, ballRadius)), 
                 this._simulation.Border,
                 this._simulation
             );
