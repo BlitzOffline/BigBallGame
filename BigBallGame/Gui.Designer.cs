@@ -271,7 +271,7 @@ namespace BigBallGame
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            this.ClientSize = new System.Drawing.Size(1920, 1060);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.moreSettingsGroupBox);
@@ -281,6 +281,7 @@ namespace BigBallGame
             this.Name = "Gui";
             this.Text = "Big Ball Game";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnClose);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this.moreSettingsGroupBox.ResumeLayout(false);
             this.moreSettingsGroupBox.PerformLayout();

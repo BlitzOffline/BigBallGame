@@ -9,6 +9,7 @@ namespace BigBallGame
     public partial class Gui : Form
     {
         private Simulation.Simulation _simulation;
+        private Thread _simulationThread;
         
         public Gui()
         {
@@ -119,8 +120,8 @@ namespace BigBallGame
                 
                 // We start the simulation on a separate thread to avoid blocking the GUI. We don't do this for the
                 // manual ticking mode as we need to be able to control the simulation from the main thread.
-                var thread = new Thread(this._simulation.StartSimulation);
-                thread.Start();
+                _simulationThread = new Thread(this._simulation.StartSimulation);
+                _simulationThread.Start();
                 return;
             }
             
@@ -168,6 +169,11 @@ namespace BigBallGame
             SystemSounds.Exclamation.Play();
             this.showDirectionsCheckBox.Checked = false;
             MessageBox.Show("Direction can only be shown in debug mode.");
+        }
+
+        private void OnClose(object sender, FormClosedEventArgs e)
+        {
+            _simulationThread.Abort();
         }
 
 
