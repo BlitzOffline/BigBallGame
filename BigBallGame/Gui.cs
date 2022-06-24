@@ -27,9 +27,9 @@ namespace BigBallGame
                 distance += ball.Center.GetDistance(ball.Center.Add(ball.Velocity));
             }
 
-            this.label7.Text = "FPS: " + this._simulation.FpsCounter + 
+            this.label7.Text = "FPS: " + (int) this._simulation.GetAverageFps() + 
                                Environment.NewLine +
-                               "Distance Traveled Last Frame: " + distance;
+                               "Units To Be Traveled: " + (int) distance;
         }
 
         private void OnSimulationStartButtonClick(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace BigBallGame
             if (_simulation == null)
             {
                 SystemSounds.Exclamation.Play();
-                MessageBox.Show("Simulation has not been started yet.");
+                MessageBox.Show("Simulation has not started yet.");
                 return;
             }
             

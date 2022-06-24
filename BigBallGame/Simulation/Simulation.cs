@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BigBallGame.Ball;
+using BigBallGame.Collection;
 
 namespace BigBallGame.Simulation;
 
 public class Simulation
 {
+    private readonly CircularQueue<float> _fps = new(60);
+    public float GetAverageFps()
+    {
+        return _fps.Sum() / _fps.Count;
+    }
+
     public readonly bool Debug;
     public readonly bool ShowDirections;
     public readonly bool AutomateTicking;
@@ -21,8 +28,6 @@ public class Simulation
 
     public readonly int MinBallRadius;
     public readonly int MaxBallRadius;
-
-    public float FpsCounter { get; private set; }
     
     public readonly Gui Gui;
     public readonly Border Border;
@@ -56,21 +61,19 @@ public class Simulation
         
         this.MinBallRadius = minBallRadius;
         this.MaxBallRadius = maxBallRadius;
-
-        this.FpsCounter = 0f;
-
+        
         this.Gui = gui;
         this.Border.MinX = 0;
         this.Border.MinY = 0;
         this.Border.MaxX = this.Gui.ClientSize.Width;
         this.Border.MaxY = this.Gui.ClientSize.Height;
-        
+
         this._ballGenerator = new BallGenerator(this);
         this.GenerateBalls();
     }
     
     public void StartSimulation()
-    { 
+    {
         this.Start();
     }
 
@@ -87,6 +90,7 @@ public class Simulation
         this.SendDebugMessage("Started simulation...");
         this.Render();
         this.SendDebugMessage("Rendered balls...");
+        
         var lastFrameTime = Environment.TickCount;
         while (this.Tick())
         {
@@ -95,15 +99,7 @@ public class Simulation
             this.SendDebugMessage("Passed time: " + passedTime);
             var remaining = this._tickTime - passedTime;
             lastFrameTime = currentFrameTime;
-
-            if (remaining >= 0)
-            {
-                this.FpsCounter = 1000f / this._tickTime;
-            }
-            else
-            {
-                this.FpsCounter = 1000f / (this._tickTime + -remaining);
-            }
+            this._fps.Enqueue(remaining >= 0 ? 1000f/ this._tickTime : 1000f / (this._tickTime + -remaining));
             if (remaining > 0) Thread.Sleep(remaining);
         }
     }
@@ -127,7 +123,8 @@ public class Simulation
         this.Render();
         this.SendDebugMessage("Rerendered balls...");
         
-        return this.AutomateTicking && this._balls.OfType<RegularBall>().Any();
+        return this._balls.OfType<RegularBall>().Any() ||
+               (Debug && (this._balls.OfType<RepellentBall>().Any() || this._balls.OfType<RegularBall>().Any()));
     }
     
     private bool HandleCollisions(IBall tickedBall)

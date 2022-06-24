@@ -259,9 +259,9 @@ namespace BigBallGame
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Location = new System.Drawing.Point(717, 9);
+            this.label7.Location = new System.Drawing.Point(1633, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(271, 200);
+            this.label7.Size = new System.Drawing.Size(275, 50);
             this.label7.TabIndex = 6;
             this.label7.Text = "FPS: 0\r\nDistance Traveled Last Frame: 0";
             this.label7.Visible = false;
@@ -272,7 +272,6 @@ namespace BigBallGame
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            this.WindowState = FormWindowState.Maximized;
             this.Controls.Add(this.label7);
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.moreSettingsGroupBox);
@@ -281,13 +280,14 @@ namespace BigBallGame
             this.DoubleBuffered = true;
             this.Name = "Gui";
             this.Text = "Big Ball Game";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this.moreSettingsGroupBox.ResumeLayout(false);
             this.moreSettingsGroupBox.PerformLayout();
             this.settingsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
         }
-        
+
         private System.Windows.Forms.Button simulationStartButton;
         private System.Windows.Forms.Button simulationTickButtom;
         

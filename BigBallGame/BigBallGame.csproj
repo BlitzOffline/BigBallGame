@@ -53,6 +53,7 @@
         <Compile Include="Ball\MonsterBall.cs" />
         <Compile Include="Ball\RegularBall.cs" />
         <Compile Include="Ball\RepellentBall.cs" />
+        <Compile Include="Collection\CircularQueue.cs" />
         <Compile Include="Drawing\GraphicsHelper.cs" />
         <Compile Include="Gui.cs">
             <SubType>Form</SubType>
