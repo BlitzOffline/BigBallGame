@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -22,7 +23,14 @@ namespace BigBallGame
             if (this._simulation == null) return;
             var distance = 0f;
 
-            foreach (var ball in this._simulation.GetBalls())
+            var balls = this._simulation.GetBalls().ToArray();
+
+            foreach (var ball in balls)
+            {
+                ball.DrawShadow(e.Graphics);
+            }
+
+            foreach (var ball in balls)
             {
                 ball.Draw(e.Graphics);
                 distance += ball.Center.GetDistance(ball.Center.Add(ball.Velocity));

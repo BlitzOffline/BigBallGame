@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace BigBallGame;
+namespace BigBallGame.Vector;
 public class Vector2D
 {
     public float X { get; set; }

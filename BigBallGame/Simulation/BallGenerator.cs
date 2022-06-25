@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using BigBallGame.Ball;
+using BigBallGame.Vector;
 
 namespace BigBallGame.Simulation
 {

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using BigBallGame.Simulation;
+using BigBallGame.Vector;
 
 namespace BigBallGame.Ball
 {

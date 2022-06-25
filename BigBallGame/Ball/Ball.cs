@@ -2,6 +2,7 @@
 using System.Drawing;
 using BigBallGame.Drawing;
 using BigBallGame.Simulation;
+using BigBallGame.Vector;
 
 namespace BigBallGame.Ball
 {
@@ -43,12 +44,16 @@ namespace BigBallGame.Ball
         
         public virtual void Draw(Graphics graphics)
         {
-            graphics.DrawCircle(Pens.DimGray, this.Center.Add(new Vector2D(5, 5)).ToPointF(), this.Radius);
             graphics.DrawBall(this);
             if (!this._simulation.Debug || !this._simulation.ShowDirections) return;
             
             this.DrawLastTrajectory(graphics);
             this.DrawNextTrajectory(graphics);
+        }
+        
+        public virtual void DrawShadow(Graphics graphics)
+        {
+            graphics.DrawBallShadow(this);
         }
 
         public virtual void Move()

@@ -61,12 +61,12 @@
         <Compile Include="Gui.Designer.cs">
             <DependentUpon>Gui.cs</DependentUpon>
         </Compile>
+        <Compile Include="Vector\Vector2D.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Simulation\BallGenerator.cs" />
         <Compile Include="Simulation\Border.cs" />
         <Compile Include="Simulation\Simulation.cs" />
-        <Compile Include="Vector2D.cs" />
         <EmbeddedResource Include="Gui.resx">
           <DependentUpon>Gui.cs</DependentUpon>
         </EmbeddedResource>

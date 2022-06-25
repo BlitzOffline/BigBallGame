@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using BigBallGame.Vector;
 
 namespace BigBallGame.Ball
 {
@@ -10,6 +11,7 @@ namespace BigBallGame.Ball
         Color Color { get; set; }
 
         void Draw(Graphics graphics);
+        void DrawShadow(Graphics graphics);
         void Move();
 
         /**

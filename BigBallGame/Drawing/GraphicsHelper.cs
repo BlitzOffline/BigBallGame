@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using BigBallGame.Ball;
+using BigBallGame.Vector;
 
 namespace BigBallGame.Drawing
 {
@@ -8,6 +9,11 @@ namespace BigBallGame.Drawing
         public static void DrawBall(this Graphics g, IBall ball)
         {
             g.DrawCircle(new Pen(ball.Color), ball.Center.ToPointF(), ball.Radius);
+        }
+
+        public static void DrawBallShadow(this Graphics g, IBall ball)
+        {
+            g.DrawCircle(Pens.DimGray, ball.Center.Add(new Vector2D(5, 5)).ToPointF(), ball.Radius);
         }
         
         public static void DrawCircle(this Graphics g, Pen pen, PointF center, float radius)
