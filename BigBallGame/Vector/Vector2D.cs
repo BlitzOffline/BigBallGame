@@ -2,6 +2,7 @@
 using System.Drawing;
 
 namespace BigBallGame.Vector;
+
 public class Vector2D
 {
     public float X { get; set; }
