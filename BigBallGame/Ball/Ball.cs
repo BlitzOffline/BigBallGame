@@ -108,9 +108,8 @@ namespace BigBallGame.Ball
                 case RegularBall when other.Radius >= this.Radius:
                 {
                     var totalRadius = other.Radius + this.Radius;
-                    var otherPercent = other.Radius / 100 * totalRadius;
-
-                    var otherRatio = otherPercent / 100;
+                    
+                    var otherRatio = other.Radius / totalRadius;
                     var thisRatio = 1.0f - otherRatio;
 
                     other.Color = Color.FromArgb(

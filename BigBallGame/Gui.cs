@@ -181,6 +181,8 @@ namespace BigBallGame
 
         private void OnClose(object sender, FormClosedEventArgs e)
         {
+            if (_simulationThread == null) return;
+            
             _simulationThread.Abort();
         }
 
